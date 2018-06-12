@@ -43,7 +43,7 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
         ScheduleDataModel item = getItem(position);
 
         vh.textViewName.setText(item.getName());
-        vh.textViewCountry.setText(item.getCountry());
+        vh.textViewCountry.setText(item.getAddress());
 
         return vh.rootView;
     }

@@ -9,26 +9,26 @@ import java.util.ArrayList;
 
 public class ScheduleDataModel {
 
-    private String name;
+    private String mName;
 
-    private String country;
+    private String mAddress;
 
 
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
-    public String getCountry() {
-        return country;
+    public String getAddress() {
+        return mAddress;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setAddress(String address) {
+        mAddress = address;
     }
 
 
@@ -36,8 +36,8 @@ public class ScheduleDataModel {
         ScheduleDataModel data = new ScheduleDataModel();
 
         try {
-            data.setName(json.getString("name"));
-            data.setCountry(json.getString("country"));
+            data.setName(json.getString("Name"));
+            data.setAddress(json.getString("Address"));
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

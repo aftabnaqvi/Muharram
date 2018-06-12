@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         mToolbar = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(mToolbar);
-        mListView.setVisibility(View.GONE);
     }
 
     private void initListView() {
@@ -93,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         mMuharramClient.getMuharramSchedule(this);
         mAdapter = new ScheduleArrayAdapter(this, mMuharramSchedule);
         mListView.setAdapter(mAdapter);
+        mListView.setVisibility(View.GONE);
     }
 
     private void initListViewHeader() {
@@ -191,5 +191,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
         mMuharramSchedule = ScheduleDataModel.fromJSONArray(programName, responseJSONArray);
         mAdapter.addAll(mMuharramSchedule);
+        mListView.setVisibility(View.VISIBLE);
     }
 }
