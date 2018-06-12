@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_header"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header_height"
+    android:background="@mipmap/header_bg">
+
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="Subject"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="Subject"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="Subject"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout> -->
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header_height">
+
+    <ImageView
+        android:id="@+id/img_header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/header_bg" />
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_medium">
+
+        <TextView
+            android:id="@+id/tv_hijri_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_small"
+            android:text="@string/hijri_date" />
+
+        <TextView
+            android:id="@+id/tv_english_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_small"
+            android:text="@string/english_date" />
+
+        <TextView
+            android:id="@+id/tv_app_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/toolbar_title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_medium" />
+
+    </LinearLayout>
+</FrameLayout>
