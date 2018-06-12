@@ -6,33 +6,39 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener {
+public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener, ServerResponseListener {
 
-    private TextView mTextMessage;
     private ListView mListView;
     private Toolbar mToolbar;
-    private TextView    mTvFloatTitle;
     private ImageView mIvHeaderBkgrd;
     private BottomNavigationView mBottomNavigationView;
 
-
     private float mHeaderHeight;
     private float mMinHeaderHeight;
-    private float mTitleLeftMargin;
-    private float mTitleSize;
+    List<ScheduleDataModel> mMuharramSchedule = null;
+    private ScheduleArrayAdapter mAdapter;
+
+    protected MuharramClient    mMuharramClient = null;
+
+
+
+    private static final String TAG = "MainActivity";
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -60,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mMuharramClient = MuharramApplication.getSabaClient();
+
         initMeasure();
         initView();
         initListViewHeader();
@@ -70,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     private void initMeasure() {
         mHeaderHeight = getResources().getDimension(R.dimen.header_height);
         mMinHeaderHeight = getResources().getDimension(R.dimen.abc_action_bar_default_height_material);
-        mTitleLeftMargin = getResources().getDimension(R.dimen.float_title_left_margin);
-        mTitleSize = getResources().getDimension(R.dimen.float_title_size);
-        //mTitleSizeLarge = getResources().getDimension(R.dimen.float_title_size_medium);
     }
 
     private void initView() {
@@ -84,12 +89,10 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     }
 
     private void initListView() {
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            data.add(String.valueOf(i));
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.activity_list_item, android.R.id.text1, data);
-        mListView.setAdapter(adapter);
+        mMuharramSchedule = new ArrayList<ScheduleDataModel>();
+        mMuharramClient.getMuharramSchedule(this);
+        mAdapter = new ScheduleArrayAdapter(this, mMuharramSchedule);
+        mListView.setAdapter(mAdapter);
     }
 
     private void initListViewHeader() {
@@ -102,6 +105,13 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     private void initEvent() {
         mListView.setOnScrollListener(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    protected void populatePrograms() {
+        //mSwipeRefreshLayout.setRefreshing(true);
+        mAdapter.clear();
+        //mRefreshInProgress = true;
+        mMuharramClient.getMuharramSchedule(this);
     }
 
     @Override
@@ -127,42 +137,59 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         mToolbar.setBackgroundColor(Color.argb((int) (offset * 255), 0, 0, 0));
         mIvHeaderBkgrd.setTranslationY(scrollY / 2);
 
-        //mTvFloatTitle.setPivotX(mTvFloatTitle.getLeft() + mTvFloatTitle.getPaddingLeft());
-        //float titleScale = mTitleSize / mTitleSizeLarge;
-        //mTvFloatTitle.setTranslationX(mTitleLeftMargin * offset);
-        //mTvFloatTitle.setTranslationY(
-        //        (-(mTvFloatTitle.getHeight() - mMinHeaderHeight) +
-        //                mTvFloatTitle.getHeight() * (1 - titleScale))
-        //                / 2 * offset +
-        //                (mHeaderHeight - mTvFloatTitle.getHeight()) * (1 - offset));
-
-        //mTvFloatTitle.setScaleX(1 - offset * (1 - titleScale));
-        //mTvFloatTitle.setScaleY(1 - offset * (1 - titleScale));
-
         if (scrollY > headerBarOffsetY) {
             mToolbar.setTitle(getResources().getString(R.string.toolbar_title));
-            //mTvFloatTitle.setVisibility(View.GONE);
         } else {
             mToolbar.setTitle("");
-            //mTvFloatTitle.setVisibility(View.VISIBLE);
         }
 
 
     }
 
     public float getScrollY(AbsListView view) {
-        View c = view.getChildAt(0);
+        View child = view.getChildAt(0);
 
-        if (c == null)
+        if (child == null)
             return 0;
 
         int firstVisiblePosition = view.getFirstVisiblePosition();
-        int top = c.getTop();
+        int top = child.getTop();
 
         float headerHeight = 0;
         if (firstVisiblePosition >= 1)
             headerHeight = mHeaderHeight;
 
-        return -top + firstVisiblePosition * c.getHeight() + headerHeight;
+        return -top + firstVisiblePosition * child.getHeight() + headerHeight;
+    }
+
+    // ServerResponseListener implementation
+
+    @Override
+    public void processJsonObject(String programName, JSONObject response) {
+        if(response == null){
+            Log.d(TAG, "processJsonObject: responseJSONArray is null");
+            return;
+        }
+        try{
+            processJsonObject("MuharramSchedule", response.getJSONArray("Sheet1"));
+        } catch (JSONException e){
+
+        }
+    }
+
+    @Override
+    public void processJsonObject(String programName, JSONArray responseJSONArray) {
+        //mRefreshInProgress = false;
+        //if (mSwipeRefreshLayout.isRefreshing()) {
+        //    mSwipeRefreshLayout.setRefreshing(false);
+        //}
+
+        if(responseJSONArray == null){
+            Log.d(TAG, "processJsonObject: responseJSONArray is null");
+            return;
+        }
+
+        mMuharramSchedule = ScheduleDataModel.fromJSONArray(programName, responseJSONArray);
+        mAdapter.addAll(mMuharramSchedule);
     }
 }

@@ -9,7 +9,6 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,6 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
+
+//import com.loopj.android.http.H;
+//import org.apache.http.Header;
 
 /**
  * @author Syed Aftab Naqvi
@@ -56,7 +60,11 @@ public class MuharramClient {
 	}
 
 	public boolean isInProgress(){
-		return mMap.size()!=0;
+		return mMap.size() != 0;
+	}
+
+	public void getMuharramSchedule(ServerResponseListener target){
+		sendRequest("MuharramSchedule", BASE_URL, target);
 	}
 
 	public void removeTarget(String program, ServerResponseListener target){
@@ -74,6 +82,26 @@ public class MuharramClient {
 
 		// trigger the network request
 		client.get(url, new JsonHttpResponseHandler() {
+
+			//			@Override
+			public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
+			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, String responseString) {
+				super.onSuccess(statusCode, headers, responseString);
+			}
+
+//			@Override
+//			protected Object parseResponse(byte[] responseBody) throws JSONException {
+//				return super.parseResponse(responseBody);
+//			}
 
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
