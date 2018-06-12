@@ -22,6 +22,18 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener {
 
     private TextView mTextMessage;
+    private ListView mListView;
+    private Toolbar mToolbar;
+    private TextView    mTvFloatTitle;
+    private ImageView mIvHeaderBkgrd;
+    private BottomNavigationView mBottomNavigationView;
+
+
+    private float mHeaderHeight;
+    private float mMinHeaderHeight;
+    private float mTitleLeftMargin;
+    private float mTitleSize;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,10 +42,10 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_schedule);
+                    mListView.setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_prayer_times);
+                    mListView.setVisibility(View.GONE);
                     return true;
                 /*case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
@@ -42,29 +54,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
             return false;
         }
     };
-
-    //@Override
-    /*protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }*/
-
-    private ListView mListView;
-    private Toolbar mToolbar;
-    private TextView    mTvFloatTitle;
-    private ImageView mIvHeaderBkgrd;
-    //private RelativeLayout mLayout;
-
-
-    private float mHeaderHeight;
-    private float mMinHeaderHeight;
-    private float mTitleLeftMargin;
-    private float mTitleSize;
-    //private float mTitleSizeLarge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +77,10 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
     private void initView() {
         mListView = (ListView) findViewById(R.id.lv_main);
-        //mTvFloatTitle = (TextView) findViewById(R.id.tv_main_title);
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         mToolbar = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(mToolbar);
+        mListView.setVisibility(View.GONE);
     }
 
     private void initListView() {
@@ -111,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
     private void initEvent() {
         mListView.setOnScrollListener(this);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     @Override
