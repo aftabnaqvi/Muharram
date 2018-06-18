@@ -7,4 +7,13 @@
     <string name="toolbar_title">Muharram 2018</string>
     <string name="hijri_date">hijri_date</string>
     <string name="english_date">english_date</string>
+    <string name="name">TextView</string>
+    <string name="date">TextView</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="time">TextView</string>
+    <string name="desc">desc</string>
+    <string name="autolink_test">6274 Snell Ave San Jose, CA</string>
+
+
 </resources>

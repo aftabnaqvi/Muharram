@@ -12,6 +12,10 @@ public class ScheduleDataModel {
     private String mName;
 
     private String mAddress;
+    private String mDate;
+    private String mDay;
+    private String mTime;
+    private String mPhone;
 
 
 
@@ -31,6 +35,38 @@ public class ScheduleDataModel {
         mAddress = address;
     }
 
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public String getDay() {
+        return mDay;
+    }
+
+    public void setDay(String day) {
+        mDay = day;
+    }
+
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public void setTime(String time) {
+        mTime = time;
+    }
+
+    public String getPhone() {
+        return mPhone;
+    }
+
+    public void setPhone(String phone) {
+        mPhone = phone;
+    }
 
     public static ScheduleDataModel fromJSON(JSONObject json){
         ScheduleDataModel data = new ScheduleDataModel();
@@ -38,6 +74,11 @@ public class ScheduleDataModel {
         try {
             data.setName(json.getString("Name"));
             data.setAddress(json.getString("Address"));
+            data.setPhone(json.getString("Phone"));
+            data.setDate(json.getString("Date"));
+            data.setDay(json.getString("Day"));
+            data.setTime(json.getString("Time"));
+
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -1,6 +1,8 @@
 package schedule.com.syed.muharram;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,15 +14,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener, ServerResponseListener {
 
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     private void initListView() {
         mMuharramSchedule = new ArrayList<ScheduleDataModel>();
         mMuharramClient.getMuharramSchedule(this);
-        mAdapter = new ScheduleArrayAdapter(this, mMuharramSchedule);
+        mAdapter = new ScheduleArrayAdapter(this, this, mMuharramSchedule);
         mListView.setAdapter(mAdapter);
         mListView.setVisibility(View.GONE);
     }
@@ -105,6 +109,35 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     private void initEvent() {
         mListView.setOnScrollListener(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                long viewId = view.getId();
+
+                if (viewId == R.id.tvAddress) {
+                    /*SpannableString spanStr = new SpannableString(((TextView)view).getText());
+                    spanStr.setSpan(new UnderlineSpan(), 0, spanStr.length(), 0);
+                    ((TextView)view).setText(spanStr);*/
+
+                   // Use the following code to open it with map app on click as follows :
+
+                    Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="
+                            +((TextView)view).getText().toString()));
+                    startActivity(geoIntent);
+
+                } else if (viewId == R.id.tvName) {
+                    //Toast.makeText(this, "Name clicked", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+                //Intent i=new Intent(ListOfAstrologers.this,AstroProForUser.class);
+                //i.putExtra("hello",adapter.getItem(position).getUsername() );
+                //startActivity(i);
+            }
+        });
     }
 
     protected void populatePrograms() {
@@ -113,6 +146,17 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         //mRefreshInProgress = true;
         mMuharramClient.getMuharramSchedule(this);
     }
+
+    /*@Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        long viewId = view.getId();
+
+        if (viewId == R.id.tvAddress) {
+            Toast.makeText(this, "Address clicked", Toast.LENGTH_SHORT).show();
+        } else if (viewId == R.id.tvName) {
+            Toast.makeText(this, "Name clicked", Toast.LENGTH_SHORT).show();
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
