@@ -68,11 +68,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="backgroundLayerName" value="phone_transparent11" />
+                                      <entry key="backgroundLayerName" value="phone_transparent" />
                                       <entry key="foregroundAssetType" value="CLIP_ART" />
-                                      <entry key="foregroundLayerName" value="ic_phone_layer11" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="foregroundLayerName" value="ic_phone" />
                                       <entry key="outputName" value="ic_phone11" />
                                     </map>
                                   </option>
