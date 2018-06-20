@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_margin="15dp">
 
         <TextView
             android:id="@+id/tvName"
@@ -31,7 +30,8 @@
         android:layout_below="@+id/llName"
         android:orientation="horizontal"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
 
         <ImageView
             android:id="@+id/ivLocation"
@@ -60,33 +60,35 @@
         android:id="@+id/llContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/llAddress"
         android:orientation="horizontal"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
 
         <TextView
             android:id="@+id/tvDay"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/date"
             android:gravity="left"
-            android:layout_weight=".33"/>
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/date"
             android:gravity="center"
-            android:layout_weight=".33"/>
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".33"
+            android:layout_weight="1"
             android:gravity="right"
             android:text="@string/time" />
     </LinearLayout>
@@ -98,7 +100,8 @@
         android:layout_below="@+id/llContact"
         android:orientation="horizontal"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
 
         <ImageView
             android:id="@+id/ivPhone"
