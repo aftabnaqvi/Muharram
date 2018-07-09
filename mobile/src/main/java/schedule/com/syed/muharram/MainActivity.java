@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener, ServerResponseListener {
 
-    private ListView mListView;
+    private ListView mMuharramListView;
     private Toolbar mToolbar;
     private ImageView mIvHeaderBkgrd;
     private BottomNavigationView mBottomNavigationView;
@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mListView.setVisibility(View.VISIBLE);
+                    mMuharramListView.setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_dashboard:
-                    mListView.setVisibility(View.GONE);
+                    mMuharramListView.setVisibility(View.GONE);
                     return true;
                 /*case R.id.navigation_notifications:
                     mTextMessage.setText(R.string.title_notifications);
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     }
 
     private void initView() {
-        mListView = (ListView) findViewById(R.id.lv_main);
+        mMuharramListView = (ListView) findViewById(R.id.lv_main);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         mToolbar = (Toolbar) findViewById(R.id.tb_main);
         setSupportActionBar(mToolbar);
@@ -95,22 +95,22 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         mMuharramSchedule = new ArrayList<ScheduleDataModel>();
         mMuharramClient.getMuharramSchedule(this);
         mAdapter = new ScheduleArrayAdapter(this, this, mMuharramSchedule);
-        mListView.setAdapter(mAdapter);
-        mListView.setVisibility(View.GONE);
+        mMuharramListView.setAdapter(mAdapter);
+        mMuharramListView.setVisibility(View.GONE);
     }
 
     private void initListViewHeader() {
-        View headerContainer = LayoutInflater.from(this).inflate(R.layout.header, mListView, false);
+        View headerContainer = LayoutInflater.from(this).inflate(R.layout.header, mMuharramListView, false);
         mIvHeaderBkgrd = (ImageView) headerContainer.findViewById(R.id.img_header_bg);
         //mLayout = (RelativeLayout)headerContainer.findViewById(R.id.rl_header);
-        mListView.addHeaderView(headerContainer);
+        mMuharramListView.addHeaderView(headerContainer);
     }
 
     private void initEvent() {
-        mListView.setOnScrollListener(this);
+        mMuharramListView.setOnScrollListener(this);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mMuharramListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -235,6 +235,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
         mMuharramSchedule = ScheduleDataModel.fromJSONArray(programName, responseJSONArray);
         mAdapter.addAll(mMuharramSchedule);
-        mListView.setVisibility(View.VISIBLE);
+        mMuharramListView.setVisibility(View.VISIBLE);
     }
 }
