@@ -16,4 +16,7 @@
     <string name="autolink_test">6274 Snell Ave San Jose, CA</string>
 
 
+    <string name="prayer_name">Prayer Name</string>
+    <string name="prayer_time">Prayer Time</string>
+
 </resources>
