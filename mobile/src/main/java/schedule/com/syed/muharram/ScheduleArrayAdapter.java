@@ -2,6 +2,7 @@ package schedule.com.syed.muharram;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.graphics.Paint;
 
 import java.util.List;
 
@@ -65,6 +65,23 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
             }
         });
 
+
+        /*
+        Date date1 = null;
+        try{
+            String date = item.getDate();
+            date1 = new SimpleDateFormat("MM/DD/YYYY").parse(date);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+
+        Date date = new Date();
+        if(date1!=null && (date.getTime() >  date1.getTime())){
+            convertView.setBackgroundColor(Color.GREEN);
+        }
+        */
 
         return vh.rootView;
     }

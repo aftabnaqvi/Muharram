@@ -94,7 +94,7 @@
             android:singleLine="true"
             android:text="@string/toolbar_title"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_size_medium" />
+            android:textSize="@dimen/text_size_small" />
 
     </LinearLayout>
 </FrameLayout>

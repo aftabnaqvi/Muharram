@@ -18,8 +18,9 @@
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="1" />
     </LinearLayout>
 
     <LinearLayout
