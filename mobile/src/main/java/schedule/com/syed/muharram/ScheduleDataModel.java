@@ -5,7 +5,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ScheduleDataModel {
 
@@ -16,7 +18,7 @@ public class ScheduleDataModel {
     private String mDay;
     private String mTime;
     private String mPhone;
-
+    private String mMasayab;
 
 
     public String getName() {
@@ -68,6 +70,14 @@ public class ScheduleDataModel {
         mPhone = phone;
     }
 
+    public String getMasayab() {
+        return mMasayab;
+    }
+
+    public void setMasayab(String masayab) {
+        mMasayab = masayab;
+    }
+
     public static ScheduleDataModel fromJSON(JSONObject json){
         ScheduleDataModel data = new ScheduleDataModel();
 
@@ -78,6 +88,7 @@ public class ScheduleDataModel {
             data.setDate(json.getString("Date"));
             data.setDay(json.getString("Day"));
             data.setTime(json.getString("Time"));
+            data.setMasayab(json.getString("Masayab"));
 
         } catch (JSONException e) {
             // TODO Auto-generated catch block
@@ -95,6 +106,22 @@ public class ScheduleDataModel {
             try{
                 scheduleJson = jsonArray.getJSONObject(i);
                 ScheduleDataModel schedule = fromJSON(scheduleJson);
+
+                // convert in-coming date in more readable formt which includes day as well.
+                Date actualDate = null;
+                try{
+                    actualDate = new SimpleDateFormat("MM/dd/yy").parse(schedule.getDate()); // MM/dd/yy is important ---- lower-case dd/yy is important.
+                } catch(Exception e){
+                    e.printStackTrace();
+                    continue;
+                }
+
+                Date currDate = new Date();
+
+                if(actualDate!=null && actualDate.getTime()<currDate.getTime()){
+                    continue;
+                }
+
                 programs.add(schedule);
 
             } catch(JSONException e){

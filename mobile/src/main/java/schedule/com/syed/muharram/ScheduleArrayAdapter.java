@@ -12,6 +12,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
@@ -43,15 +46,30 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
             View view = mInflater.inflate(R.layout.layout_row_view, parent, false);
             vh = ViewHolder.create((RelativeLayout) view);
             view.setTag(vh);
+
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
 
         ScheduleDataModel item = getItem(position);
 
+        // convert in-coming date in more readable formt which includes day as well.
+        Date betterFormat = null;
+        try{
+            betterFormat = new SimpleDateFormat("MM/dd/yy").parse(item.getDate()); // MM/dd/yy is important ---- lower-case dd/yy is important.
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        DateFormat dateInstance = SimpleDateFormat.getDateInstance(DateFormat.FULL);
+        String betterDateFormat = null;
+        if(betterFormat != null)
+            betterDateFormat = dateInstance.format(betterFormat);
+        else
+            betterDateFormat = item.getDay();
+
         vh.tvName.setText(item.getName());
-        vh.tvDate.setText(item.getDate());
-        vh.tvDay.setText(item.getDay());
+        vh.tvDate.setText(betterDateFormat);
         vh.tvAddress.setText(item.getAddress());
         vh.tvTime.setText(item.getTime());
         vh.tvPhone.setText(item.getPhone());
@@ -92,7 +110,6 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
 
         public final TextView tvName;
         public final TextView tvDate;
-        public final TextView tvDay;
         public final TextView tvTime;
         public final TextView tvPhone;
         public final TextView tvAddress;
@@ -100,7 +117,6 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
         private ViewHolder(RelativeLayout rootView,
                            TextView tvName,
                            TextView tvDate,
-                           TextView tvDay,
                            TextView tvAddress,
                            TextView tvPhone,
                            TextView tvTime) {
@@ -109,7 +125,6 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
             this.tvName = tvName;
             this.tvAddress = tvAddress;
             this.tvDate = tvDate;
-            this.tvDay = tvDay;
             this.tvTime = tvTime;
             this.tvPhone = tvPhone;
 
@@ -129,13 +144,12 @@ public class ScheduleArrayAdapter extends ArrayAdapter<ScheduleDataModel> {
         public static ViewHolder create(RelativeLayout rootView) {
             TextView tvName     = (TextView) rootView.findViewById(R.id.tvName);
             TextView tvDate     = (TextView) rootView.findViewById(R.id.tvDate);
-            TextView tvDay     = (TextView) rootView.findViewById(R.id.tvDay);
             TextView tvAddress  = (TextView) rootView.findViewById(R.id.tvAddress);
             TextView tvPhone    = (TextView) rootView.findViewById(R.id.tvPhone);
             TextView tvTime     = (TextView) rootView.findViewById(R.id.tvTime);
 
 
-            return new ViewHolder(rootView, tvName, tvDate, tvDay, tvAddress, tvPhone, tvTime);
+            return new ViewHolder(rootView, tvName, tvDate, tvAddress, tvPhone, tvTime);
         }
     }
 }

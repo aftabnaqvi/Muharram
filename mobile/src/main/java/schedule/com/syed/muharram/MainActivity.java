@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
     private ListView mMuharramListView;
     private Toolbar mToolbar;
     private ImageView mIvHeaderBkgrd;
+    private boolean mbInProgress = false;
     //private BottomNavigationView mBottomNavigationView;
 
     private float mHeaderHeight;
@@ -128,18 +129,32 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
                     Intent geoIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="
                             +((TextView)view).getText().toString()));
                     startActivity(geoIntent);
-
-                } else if (viewId == R.id.tvName) {
-                    //Toast.makeText(this, "Name clicked", Toast.LENGTH_SHORT).show();
+                } else {
+                    ScheduleDataModel schedule = mMuharramAdapter.getItem(position);
+                    if(schedule.getMasayab().contains("Shabber Ali Khan")){
+                        // We have to launch this detail activity.
+                        //Intent intent = new Intent(MainActivity.this, SendMessage.class);
+                        //String message = entry.getMessage();
+                        //intent.putExtra(EXTRA_MESSAGE, message);
+                        //startActivity(intent);
+                        int x;
+                    }
                 }
             }
         });
     }
 
     protected void populatePrograms() {
+        if(mbInProgress)
+            return;
+
+        mbInProgress = true;
+
         mMuharramAdapter.clear();
         mMuharramClient.getMuharramSchedule(this);
     }
+
+    // menu options - refresh
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,6 +163,16 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_refresh:
+                populatePrograms();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -232,5 +257,6 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         mMuharramSchedule = ScheduleDataModel.fromJSONArray(programName, responseJSONArray);
         mMuharramAdapter.addAll(mMuharramSchedule);
         mMuharramListView.setVisibility(View.VISIBLE);
+        mbInProgress = false;
     }
 }

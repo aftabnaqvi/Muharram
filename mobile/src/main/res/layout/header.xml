@@ -77,7 +77,6 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_small"
             android:text="@string/hijri_date" />
-
         <TextView
             android:id="@+id/tv_english_date"
             android:layout_width="wrap_content"
@@ -95,6 +94,5 @@
             android:text="@string/toolbar_title"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_small" />
-
     </LinearLayout>
 </FrameLayout>
