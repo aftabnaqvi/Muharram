@@ -116,13 +116,18 @@ public class ScheduleDataModel {
                     continue;
                 }
 
+                // Set hours, mins and seconds to zero to make sure - we are nor skiping the current day majalis.
                 Date currDate = new Date();
+                currDate.setHours(0);
+                currDate.setMinutes(0);
+                currDate.setSeconds(0);
 
-                if(actualDate!=null && actualDate.getTime()<currDate.getTime()){
-                    continue;
+                if(actualDate!=null && actualDate.getTime()>currDate.getTime() ||
+                        currDate.getDay() == actualDate.getDay() &&
+                                currDate.getMonth() == actualDate.getMonth() &&
+                                currDate.getYear() == actualDate.getYear()) {
+                    programs.add(schedule);
                 }
-
-                programs.add(schedule);
 
             } catch(JSONException e){
                 e.printStackTrace();
