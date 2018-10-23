@@ -24,10 +24,8 @@
 
     <color name="colorWhite">#ffffff</color>
 
-
-
-        <color name="primary">#E43F3F</color>
-        <color name="primary_dark">#E12929</color>
+        <color name="primary">#000000</color>
+        <color name="primary_dark">#1570c0</color>
         <color name="primary_darker">#CC1D1D</color>
         <color name="accent">#FFFFFF</color>
 

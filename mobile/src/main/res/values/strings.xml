@@ -15,6 +15,7 @@
     <string name="time">TextView</string>
     <string name="desc">desc</string>
     <string name="autolink_test">6274 Snell Ave San Jose, CA</string>
+    <string name="signup_link"><u>No account yet? Create one</u></string>
 
 
     <string name="prayer_name">Prayer Name</string>
