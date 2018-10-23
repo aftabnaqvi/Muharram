@@ -64,6 +64,7 @@ public class MuharramClient {
 	}
 
 	public void getMuharramSchedule(ServerResponseListener target){
+		// uncomment this line - when we done testing ....
 		sendRequest("MuharramSchedule", BASE_URL, target);
 	}
 
@@ -91,6 +92,11 @@ public class MuharramClient {
 			@Override
 			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 				super.onFailure(statusCode, headers, responseString, throwable);
+				ServerResponseListener listener = mMap.get(programName);
+				if(listener != null) {
+					//target.processJsonObject(programName, null);
+					removeTarget(programName, listener);
+				}
 			}
 
 			@Override

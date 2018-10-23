@@ -20,4 +20,9 @@
     <string name="prayer_name">Prayer Name</string>
     <string name="prayer_time">Prayer Time</string>
 
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <!-- Change the following strings as required -->
+    <string name="back4app_app_id">8nGWAYgLj3z6PcN2hM3UBvdHUpAtXmRExxxN40Yu</string>
+    <string name="back4app_client_key">FtklroEhu8qFgyB9N184LxptQX3yMX0u3MnLinQD</string>
+
 </resources>

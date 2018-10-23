@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // un comment this line....
         mMuharramClient = MuharramApplication.getSabaClient();
+
         initMeasure();
         initView();
         initListViewHeader();
