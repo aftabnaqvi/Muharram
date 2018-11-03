@@ -141,15 +141,15 @@ public class LoginActivity extends AppCompatActivity {
         String userName = mUserName.getText().toString();
         String password = mPassword.getText().toString();
 
-        if (userName.isEmpty() || userName.length()<4) {
+        if (userName.isEmpty()) {
             mUserName.setError("enter a valid username.");
             valid = false;
         } else {
             mUserName.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            mPassword.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty()) {
+            mPassword.setError("password should be more than one character.");
             valid = false;
         } else {
             mPassword.setError(null);
@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 1;
     }
 
     private boolean isEmpty(EditText text) {
@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -193,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setTitle(title)
                 .setMessage(message)
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Email", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -221,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri data = Uri.parse("mailto:"
                 + "mubasher@comcast.net"
-                + "?subject=" + "AAM-SABA access to see Bay Area Majalis Schedule" + "&body=" + "");
+                + "?subject=" + "Please give me access to use AAM-SABA - Bay Area Majalis Schedule" + "&body=" + "");
         intent.setData(data);
         startActivity(intent);
     }

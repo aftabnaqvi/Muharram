@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
 
         //mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         mToolbar = (Toolbar) findViewById(R.id.tb_main);
-        setSupportActionBar(mToolbar);
+        //setSupportActionBar(mToolbar);
     }
 
     private void initListView() {
